@@ -18,8 +18,10 @@ def _isArrayLike(obj):
 class DOTA:
     def __init__(self, basepath):
         self.basepath = basepath
-        self.labelpath = os.path.join(basepath, 'labelTxt')
-        self.imagepath = os.path.join(basepath, 'images')
+        # self.labelpath = os.path.join(basepath, 'labelTxt')
+        self.labelpath = os.path.join(basepath, 'labelTxt-v1.0', 'labelTxt')
+        # self.imagepath = os.path.join(basepath, 'images')
+        self.imagepath = os.path.join(basepath, 'images', 'images')
         self.imgpaths = util.GetFileFromThisRootDir(self.labelpath)
         self.imglist = [util.custombasename(x) for x in self.imgpaths]
         self.catToImgs = defaultdict(list)
@@ -96,6 +98,10 @@ class DOTA:
         ax.add_collection(p)
         p = PatchCollection(circles, facecolors='red')
         ax.add_collection(p)
+        # Saving the displayed results
+        plt.savefig('F:\workspace\DOTAv1.5\\train\images\\images_show_gt\\' + str(imgId) + '.png', dpi=1000, facecolor=None, edgecolor=None, 
+                    format='png', bbox_inches='tight', pad_inches=0.01) # dpi should larger than 1000 for better display
+        plt.close()
     def loadImgs(self, imgids=[]):
         """
         :param imgids: integer ids specifying img
@@ -112,10 +118,12 @@ class DOTA:
             imgs.append(img)
         return imgs
 
-# if __name__ == '__main__':
-#     examplesplit = DOTA('examplesplit')
-#     imgids = examplesplit.getImgIds(catNms=['plane'])
-#     img = examplesplit.loadImgs(imgids)
-#     for imgid in imgids:
-#         anns = examplesplit.loadAnns(imgId=imgid)
-#         examplesplit.showAnns(anns, imgid, 2)
+if __name__ == '__main__':
+    examplesplit = DOTA('F:\workspace\DOTAv1.5\\train')
+    imgids = examplesplit.getImgIds(catNms=['plane'])
+    imgids = imgids[:10] # test for the first 10 images
+    img = examplesplit.loadImgs(imgids)
+    for imgid in imgids:
+        # anns = examplesplit.loadAnns(imgId=imgid)
+        anns = examplesplit.loadAnns(catNms=['plane'] ,imgId=imgid)
+        examplesplit.showAnns(anns, imgid, 2)

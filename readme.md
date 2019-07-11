@@ -1,3 +1,20 @@
+## Update2019/7/11
+
+Adding:
+<ul>
+	<li>
+		img_utils.py: functions of converting image format, coordinates convertion, and displaying image.
+	</li>
+	<li>
+		convert_to_VOC.py: converting to VOC format (xml) (not tested).
+	</li>
+	<li>
+		DOTA2COCO_IL.py: Modifying DOTA2COCO.py for incremental learning.
+	</li>
+	<li>
+		DOTA.py: Modifying DOTA.py for saving plotted images.
+	</li>
+</ul>
 
 ## Update
 

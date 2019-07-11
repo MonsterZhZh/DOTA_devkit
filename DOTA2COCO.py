@@ -7,8 +7,8 @@ wordname_15 = ['plane', 'baseball-diamond', 'bridge', 'ground-track-field', 'sma
                'basketball-court', 'storage-tank',  'soccer-ball-field', 'roundabout', 'harbor', 'swimming-pool', 'helicopter']
 
 def DOTA2COCO(srcpath, destfile):
-    imageparent = os.path.join(srcpath, 'images')
-    labelparent = os.path.join(srcpath, 'labelTxt')
+    imageparent = os.path.join(srcpath, 'images', 'images')
+    labelparent = os.path.join(srcpath, 'labelTxt-v1.0', 'labelTxt')
 
     data_dict = {}
     info = {'contributor': 'captain group',
@@ -65,4 +65,4 @@ def DOTA2COCO(srcpath, destfile):
             image_id = image_id + 1
         json.dump(data_dict, f_out)
 if __name__ == '__main__':
-    DOTA2COCO(r'/data0/data_dj/1024_new', r'/data0/data_dj/1024_new/DOTA_trainval1024.json')
+    DOTA2COCO('F:\workspace\DOTAv1.5\\train', 'F:\workspace\DOTAv1.5\\train\Annotations\DOTA_train.json')
