@@ -1,3 +1,25 @@
+## Update2019/8/23
+Adding:
+<ul>
+    <li>
+        voc2coco.py: script for converting VOC annotation files (xml format) to COCO format (json file).
+    </li>
+    <li>
+        convert_txt.py: script for processing files for the use of dota_evaluation_task2.py.
+        Include:
+            Processing ground truth xml files.
+            Recording imageset files.
+            Converting detection files (txt format) in the class-specific files(txt format).
+    </li>
+    <li>
+        xml_utils.py: script includes some basic operations of xml format file. 
+        Such as: calculating some statistic properties, splitting dataset for training and validation, and modifying existed xml files.
+    </li>
+    <li>
+        filter_imgs.py: script for filtering out images for further analysis. Moreover: rename and remove certain images from the given path.
+    </li>
+</ul>
+
 ## Update2019/7/11
 
 Adding:
