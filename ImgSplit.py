@@ -61,7 +61,7 @@ class splitbase():
         self.slide = self.subsize - self.gap
         self.thresh = thresh
         self.imagepath = os.path.join(self.basepath, 'images')
-        self.labelpath = os.path.join(self.basepath, 'labelTxt')
+        self.labelpath = os.path.join(self.basepath, 'labelTxt-v1.5\\train_hbb')
         self.outimagepath = os.path.join(self.outpath, 'images')
         self.outlabelpath = os.path.join(self.outpath, 'labelTxt')
         self.choosebestpoint = choosebestpoint
@@ -240,6 +240,9 @@ class splitbase():
 
 if __name__ == '__main__':
     # example usage of ImgSplit
-    split = splitbase(r'example',
-                       r'examplesplit')
+    split = splitbase(r'F:\\DOTAv1.5\\train\\',
+                       r'F:\\DOTAv1.5\\train_Split_800\\',
+                       gap=200,
+                       subsize=800,
+                       ext='.jpg')
     split.splitdata(1)

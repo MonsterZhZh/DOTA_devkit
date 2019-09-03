@@ -1,3 +1,11 @@
+## Update2019/9/1
+Adding:
+<ul>
+    <li>
+        vis_from_txts.py: The script tailored for incremental learning is visualizing results of txt annotation files.
+    </li>
+</ul>
+
 ## Update2019/8/23
 Adding:
 <ul>

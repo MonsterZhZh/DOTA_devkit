@@ -9,9 +9,12 @@ import math
 """
     some basic functions which are useful for process DOTA data
 """
-
+# LabelTxtv1.0
 wordname_15 = ['plane', 'baseball-diamond', 'bridge', 'ground-track-field', 'small-vehicle', 'large-vehicle', 'ship', 'tennis-court',
                'basketball-court', 'storage-tank',  'soccer-ball-field', 'roundabout', 'harbor', 'swimming-pool', 'helicopter']
+# LabelTxtv1.5
+# wordname_16 = ['plane', 'baseball-diamond', 'bridge', 'ground-track-field', 'small-vehicle', 'large-vehicle', 'ship', 'tennis-court',
+#                'basketball-court', 'storage-tank',  'soccer-ball-field', 'turntable', 'harbor', 'swimming-pool', 'helicopter', 'container-crane']
 
 def custombasename(fullname):
     return os.path.basename(os.path.splitext(fullname)[0])

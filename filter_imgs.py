@@ -34,13 +34,14 @@ def rename(image_path):
 	images_lists = os.listdir(image_path)
 	for img_name in images_lists:
 		img = Image.open(image_path + img_name)
+		img = img.convert('RGB') # In case of converting png to jpg reports Alpha error
 		new_name = img_name.split('.')[0].strip() + '.jpg'
 		img.save(image_path + new_name)
 
 def removeFileInDir(sourceDir):
     for file in os.listdir(sourceDir):
         file = os.path.join(sourceDir,file)
-        if os.path.isfile(file) and file.find(".jpg.jpg")>0:
+        if os.path.isfile(file) and file.find(".png")>0:
             os.remove(file)
             print (file + " remove succeeded")
 
@@ -54,6 +55,6 @@ def filterImgs(image_path, save_path):
 
 if __name__ == '__main__':
 	args = parse_args()
-	filterImgs(args.img_dir, args.save_dir)
-	# rename(args.img_dir)
-	# removeFileInDir(args.img_dir)
+	# filterImgs(args.img_dir, args.save_dir)
+	rename(args.img_dir)
+	removeFileInDir(args.img_dir)
