@@ -2,6 +2,12 @@ import os
 import xml.etree.ElementTree as ET
 import glob
 
+# LabelTxtv1.5
+# Old task 8 classes
+wordname_old_8 = ['plane', 'baseball-diamond', 'bridge', 'ground-track-field', 'small-vehicle', 'large-vehicle', 'ship', 'tennis-court']
+# New task 8 classes
+wordname_new_8 = ['basketball-court', 'storage-tank',  'soccer-ball-field', 'turntable', 'harbor', 'swimming-pool', 'helicopter', 'container-crane']
+
 def merge_to_single_cls(txt_path, save_path, class_name):
 	image_name_lists = os.listdir(txt_path)
 	with open(txt_path + save_path, 'w') as w:
@@ -16,6 +22,24 @@ def merge_to_single_cls(txt_path, save_path, class_name):
 						w.write('{:s} {:.3f} {:.0f} {:.0f} {:.0f} {:.0f}\n'.format(image_name.split('.')[0], float(splitline[4]), float(splitline[0]), float(splitline[1]), float(splitline[2]), float(splitline[3])))
 					else:
 						print('No matching class found in the:', image_name)
+
+def merge_to_multiple_cls(txt_path, save_path, class_names):
+	image_name_lists = os.listdir(txt_path)
+	for class_name in class_names:
+		save_path = '/home/wsh/DOTAv1.5/coco/dets/' + class_name + '.txt'
+		with open(save_path, 'w') as w:
+			for image_name in image_name_lists:
+				with open(txt_path + image_name, 'r') as r:
+					lines = r.readlines()
+					splitlines = [x.strip().replace(' ','').split(',') for x in lines]
+					for splitline in splitlines:
+						if splitline[4] == class_name:
+							w.write('{:s} {:.3f} {:.0f} {:.0f} {:.0f} {:.0f}\n'.format(image_name.split('.')[0], float(splitline[5]), float(splitline[0]), float(splitline[1]), float(splitline[2]), float(splitline[3])))
+						elif splitline[5] == class_name:
+							w.write('{:s} {:.3f} {:.0f} {:.0f} {:.0f} {:.0f}\n'.format(image_name.split('.')[0], float(splitline[4]), float(splitline[0]), float(splitline[1]), float(splitline[2]), float(splitline[3])))
+						else:
+							print('No matching class found in the:', image_name)
+
 
 def get_and_check(root, name, length):
     vars = root.findall(name)
@@ -56,5 +80,6 @@ if __name__ == '__main__':
 	# merge_to_single_cls('F:\\DOTA_devkit-master\\detection_results\\FPN\\', 'Vehicle.txt', 'Vehicle')
 	# merge_to_single_cls('ensamble/', 'Vehicle.txt', 'Vehicle')
 	# merge_to_single_cls('F:\\DOTA_devkit-master\\detection_results\\cascade_rcnn\\', 'Vehicle.txt', 'Vehicle')
+	merge_to_multiple_cls('/home/wsh/DOTAv1.5/coco/dets/txts/', '/home/wsh/DOTAv1.5/coco/dets/', wordname_old_8)
 	# covert_gt_xml_to_txt('F:\\UAV\\all\\Annotations\\', 'GT\\')
-	record_imagesetfile('F:\\UAV\\all\\JPEGImages\\', 'GT\\')
+	# record_imagesetfile('/home/wsh/DOTAv1.5/coco/val_N8', '/home/wsh/DOTAv1.5/coco/GT/')

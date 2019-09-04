@@ -1,6 +1,8 @@
 import os, sys
 import argparse
 from PIL import Image
+import json
+from shutil import copyfile
 
 bads = ['00013751.jpg', '00013865.jpg', '00013866.jpg', 
 	    '00013869.jpg', '00013872.jpg', '00013873.jpg', 
@@ -53,8 +55,32 @@ def filterImgs(image_path, save_path):
 			img = Image.open(image_path + img_name)
 			img.save(save_path + img_name)
 
+def select_imgs_from_json(json_file):
+	with open(json_file, 'r') as f:
+		instances = json.load(f)
+		imgs = instances['images']
+		img_names = [img['file_name'] for img in imgs]
+		base_path = '/home/wsh/DOTAv1.5/coco'
+		for img_name in img_names:
+			img_path = os.path.join(base_path, 'coco_val2014', img_name)
+			save_path = os.path.join(base_path, 'val_N8/imgs', img_name)
+			copyfile(img_path, save_path)
+
+def select_txts_from_json(json_file):
+	with open(json_file, 'r') as f:
+		instances = json.load(f)
+		imgs = instances['images']
+		img_names = [img['file_name'] for img in imgs]
+		base_path = '/home/wsh/DOTAv1.5/coco'
+		for img_name in img_names:
+			txt_name = img_name.split('.')[0] + '.txt'
+			img_path = os.path.join(base_path, 'coco_val2014', txt_name)
+			save_path = os.path.join(base_path, 'val_N8/txts', txt_name)
+			copyfile(img_path, save_path)
+
 if __name__ == '__main__':
-	args = parse_args()
+	# args = parse_args()
 	# filterImgs(args.img_dir, args.save_dir)
-	rename(args.img_dir)
-	removeFileInDir(args.img_dir)
+	# rename(args.img_dir)
+	# removeFileInDir(args.img_dir)
+	select_imgs_from_json('/home/wsh/DOTAv1.5/coco/annotations_N8/instances_val2014.json')
