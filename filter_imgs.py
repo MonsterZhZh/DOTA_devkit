@@ -71,16 +71,17 @@ def select_txts_from_json(json_file):
 		instances = json.load(f)
 		imgs = instances['images']
 		img_names = [img['file_name'] for img in imgs]
-		base_path = '/home/wsh/DOTAv1.5/coco'
+		base_path = 'F:\\DOTAv1.5\\val_Split_800'
 		for img_name in img_names:
 			txt_name = img_name.split('.')[0] + '.txt'
-			img_path = os.path.join(base_path, 'coco_val2014', txt_name)
-			save_path = os.path.join(base_path, 'val_N8/txts', txt_name)
-			copyfile(img_path, save_path)
+			txt_path = os.path.join(base_path, 'labelTxt', txt_name)
+			save_path = os.path.join(base_path, 'labelTxt_N8', txt_name)
+			copyfile(txt_path, save_path)
 
 if __name__ == '__main__':
 	# args = parse_args()
 	# filterImgs(args.img_dir, args.save_dir)
 	# rename(args.img_dir)
 	# removeFileInDir(args.img_dir)
-	select_imgs_from_json('/home/wsh/DOTAv1.5/coco/annotations_N8/instances_val2014.json')
+	# select_imgs_from_json('/home/wsh/DOTAv1.5/coco/annotations_N8/instances_val2014.json')
+	select_txts_from_json('F:\\DOTAv1.5\\val_Split_800\\Annotations\\DOTA_val_N8.json')

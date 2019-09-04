@@ -233,12 +233,12 @@ def main():
     # annopath = r'I:\dota\testset\ReclabelTxt-utf-8\{:s}.txt'
     # imagesetfile = r'I:\dota\testset\va.txt'
 
-    detpath = r'PATH_TO_BE_CONFIGURED/Task2_{:s}.txt'
-    annopath = r'PATH_TO_BE_CONFIGURED/{:s}.txt'# change the directory to the path of val/labelTxt, if you want to do evaluation on the valset
-    imagesetfile = r'PATH_TO_BE_CONFIGURED/valset.txt'
+    detpath = r'detection_results/dets/val_O8/{:s}.txt'
+    annopath = r'detection_results/labelTxt_O8/{:s}.txt'# change the directory to the path of val/labelTxt, if you want to do evaluation on the valset
+    imagesetfile = r'detection_results/GT/imagesetfile_O8.txt'
 
-    classnames = ['plane', 'baseball-diamond', 'bridge', 'ground-track-field', 'small-vehicle', 'large-vehicle', 'ship', 'tennis-court',
-                'basketball-court', 'storage-tank',  'soccer-ball-field', 'roundabout', 'harbor', 'swimming-pool', 'helicopter']
+    classnames = ['plane', 'baseball-diamond', 'bridge', 'ground-track-field', 'small-vehicle', 'large-vehicle', 'ship', 'tennis-court'] # Old 8 categories
+    # classnames = ['basketball-court', 'storage-tank',  'soccer-ball-field', 'turntable', 'harbor', 'swimming-pool', 'helicopter', 'container-crane'] # New 8 categories
     classaps = []
     map = 0
     for classname in classnames:
