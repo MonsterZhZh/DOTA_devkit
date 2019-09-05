@@ -26,8 +26,8 @@ def merge_to_single_cls(txt_path, save_path, class_name):
 def merge_to_multiple_cls(txt_path, save_path, class_names):
 	image_name_lists = os.listdir(txt_path)
 	for class_name in class_names:
-		save_path = '/home/wsh/DOTAv1.5/coco/dets/' + class_name + '.txt'
-		with open(save_path, 'w') as w:
+		save_file = save_path + class_name + '.txt'
+		with open(save_file, 'w') as w:
 			for image_name in image_name_lists:
 				with open(txt_path + image_name, 'r') as r:
 					lines = r.readlines()
@@ -80,6 +80,6 @@ if __name__ == '__main__':
 	# merge_to_single_cls('F:\\DOTA_devkit-master\\detection_results\\FPN\\', 'Vehicle.txt', 'Vehicle')
 	# merge_to_single_cls('ensamble/', 'Vehicle.txt', 'Vehicle')
 	# merge_to_single_cls('F:\\DOTA_devkit-master\\detection_results\\cascade_rcnn\\', 'Vehicle.txt', 'Vehicle')
-	merge_to_multiple_cls('/home/wsh/DOTAv1.5/coco/dets/txts/', '/home/wsh/DOTAv1.5/coco/dets/', wordname_old_8)
+	merge_to_multiple_cls('F:\\DOTA_devkit\\detection_results\\dets\\val_O8\\txts\\', 'F:\\DOTA_devkit\\detection_results\\dets\\val_O8\\', wordname_old_8)
 	# covert_gt_xml_to_txt('F:\\UAV\\all\\Annotations\\', 'GT\\')
 	# record_imagesetfile('/home/wsh/DOTAv1.5/coco/val_N8', '/home/wsh/DOTAv1.5/coco/GT/')
