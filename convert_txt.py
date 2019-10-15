@@ -2,6 +2,7 @@ import os
 import xml.etree.ElementTree as ET
 import glob
 
+## DOTA
 # LabelTxtv1.5
 # Old task 8 classes
 wordname_old_8 = ['plane', 'baseball-diamond', 'bridge', 'ground-track-field', 'small-vehicle', 'large-vehicle', 'ship', 'tennis-court']

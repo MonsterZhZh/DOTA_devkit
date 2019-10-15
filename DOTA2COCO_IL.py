@@ -18,9 +18,9 @@ import json
 
 ## DIOR
 # Old task 10 classes
-wordname_old_10 = ['golffield', 'Expressway-toll-station', 'vehicle', 'trainstation', 'chimney', 'storagetank', 'ship', 'harbor', 'airplane', 'groundtrackfield']
+wordname_old_10 = ['airplane', 'baseballfield', 'bridge', 'groundtrackfield', 'vehicle', 'ship', 'tenniscourt', 'airport', 'chimney', 'dam']
 # New task 10 classes
-wordname_new_10 = ['tenniscourt', 'dam', 'basketballcourt', 'Expressway-Service-area', 'stadium', 'airport', 'baseballfield', 'bridge', 'windmill', 'overpass']
+wordname_new_10 = ['basketballcourt', 'storagetank', 'harbor', 'Expressway-toll-station', 'Expressway-Service-area', 'golffield', 'overpass', 'stadium', 'trainstation', 'windmill']
 
 
 def DOTA2COCO(srcpath, destfile, wordname):
