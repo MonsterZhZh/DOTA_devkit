@@ -9,12 +9,18 @@ import math
 """
     some basic functions which are useful for process DOTA data
 """
+
+## DOTA
 # LabelTxtv1.0
-wordname_15 = ['plane', 'baseball-diamond', 'bridge', 'ground-track-field', 'small-vehicle', 'large-vehicle', 'ship', 'tennis-court',
-               'basketball-court', 'storage-tank',  'soccer-ball-field', 'roundabout', 'harbor', 'swimming-pool', 'helicopter']
+# wordname_15 = ['plane', 'baseball-diamond', 'bridge', 'ground-track-field', 'small-vehicle', 'large-vehicle', 'ship', 'tennis-court',
+#                'basketball-court', 'storage-tank',  'soccer-ball-field', 'roundabout', 'harbor', 'swimming-pool', 'helicopter']
 # LabelTxtv1.5
 # wordname_16 = ['plane', 'baseball-diamond', 'bridge', 'ground-track-field', 'small-vehicle', 'large-vehicle', 'ship', 'tennis-court',
 #                'basketball-court', 'storage-tank',  'soccer-ball-field', 'turntable', 'harbor', 'swimming-pool', 'helicopter', 'container-crane']
+
+## DIOR
+# wordname_20 = ['golffield', 'Expressway-toll-station', 'vehicle', 'trainstation', 'chimney', 'storagetank', 'ship', 'harbor', 'airplane', 'groundtrackfield', 
+#                'tenniscourt', 'dam', 'basketballcourt', 'Expressway-Service-area', 'stadium', 'airport', 'baseballfield', 'bridge', 'windmill', 'overpass']
 
 def custombasename(fullname):
     return os.path.basename(os.path.splitext(fullname)[0])
@@ -72,13 +78,7 @@ def parse_dota_poly(filename):
             if (len(splitlines) == 9):
                 object_struct['difficult'] = '0'
             elif (len(splitlines) >= 10):
-                # if splitlines[9] == '1':
-                # if (splitlines[9] == 'tr'):
-                #     object_struct['difficult'] = '1'
-                # else:
                 object_struct['difficult'] = splitlines[9]
-                # else:
-                #     object_struct['difficult'] = 0
             object_struct['poly'] = [(float(splitlines[0]), float(splitlines[1])),
                                      (float(splitlines[2]), float(splitlines[3])),
                                      (float(splitlines[4]), float(splitlines[5])),
@@ -107,6 +107,62 @@ def parse_dota_poly2(filename):
     for obj in objects:
         obj['poly'] = TuplePoly2Poly(obj['poly'])
         obj['poly'] = list(map(int, obj['poly']))
+    return objects
+
+def parse_dota_poly3(filename):
+    """
+        parse the dota ground truth in the format:
+        [xmin, ymin, xmax, ymax]
+    """
+    objects = []
+    #print('filename:', filename)
+    f = []
+    if (sys.version_info >= (3, 5)):
+        fd = open(filename, 'r')
+        f = fd
+    elif (sys.version_info >= 2.7):
+        fd = codecs.open(filename, 'r')
+        f = fd
+    # count = 0
+    while True:
+        line = f.readline()
+        # count = count + 1
+        # if count < 2:
+        #     continue
+        if line:
+            splitlines = line.strip().split(' ')
+            object_struct = {}
+            ### clear the wrong name after check all the data
+            #if (len(splitlines) >= 9) and (splitlines[8] in classname):
+            if (len(splitlines) < 5):
+                continue
+            if (len(splitlines) >= 5):
+                    object_struct['name'] = splitlines[4]
+            if (len(splitlines) == 5):
+                object_struct['difficult'] = '0'
+            elif (len(splitlines) >= 6):
+                # if splitlines[9] == '1':
+                # if (splitlines[9] == 'tr'):
+                #     object_struct['difficult'] = '1'
+                # else:
+                object_struct['difficult'] = splitlines[5]
+                # else:
+                #     object_struct['difficult'] = 0
+            object_struct['poly'] = [int(splitlines[0]), int(splitlines[1]),
+                                     int(splitlines[2]), int(splitlines[3])
+                                    ]
+            width, height = float(splitlines[2]) - float(splitlines[0]), float(splitlines[3]) - float(splitlines[1])
+            object_struct['area'] = width * height
+            # poly = list(map(lambda x:np.array(x), object_struct['poly']))
+            # object_struct['long-axis'] = max(distance(poly[0], poly[1]), distance(poly[1], poly[2]))
+            # object_struct['short-axis'] = min(distance(poly[0], poly[1]), distance(poly[1], poly[2]))
+            # if (object_struct['long-axis'] < 15):
+            #     object_struct['difficult'] = '1'
+            #     global small_count
+            #     small_count = small_count + 1
+            objects.append(object_struct)
+        else:
+            break
     return objects
 
 def parse_dota_rec(filename):

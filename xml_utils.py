@@ -57,9 +57,9 @@ def calculate(annotations, images):
 		tree = ET.parse(os.path.join(annotations, str(it) + '.xml'))
 		root = tree.getroot()
 		node_root = Element('annotation')
-		node_folder = SubElement(node_root, 'folder')
+		# node_folder = SubElement(node_root, 'folder')
 		# node_folder.text = ''
-		node_filename = SubElement(node_root, 'filename')
+		# node_filename = SubElement(node_root, 'filename')
 		# node_filename.text = str(it)+'.jpg'
 		# Calculate the number of images and instances
 		Objects = root.findall('object')
@@ -186,19 +186,19 @@ def modify_xml(annotations):
 
 
 if __name__ == '__main__':
-	# origin_ann_dir = 'F:\\UAV\\all\\Annotations\\'
-	# img_dir = 'F:\\UAV\\all\\JPEGImages\\'
+	origin_ann_dir = 'F:\\DIOR\\Annotations\\'
+	img_dir = 'F:\\DIOR\\JPEGImages-test\\'
 
-	# categories, num_imgs, num_ins, ratios = calculate(origin_ann_dir, img_dir)
-	# print('categories:', categories)
-	# print('number of imaegs:', num_imgs)
-	# print('number of instances:', num_ins)
-	# print('types of ratios:', ratios)
-	# print(sorted(ratios, key=itemgetter(1)))
+	categories, num_imgs, num_ins, ratios = calculate(origin_ann_dir, img_dir)
+	print('categories:', categories)
+	print('number of imaegs:', num_imgs)
+	print('number of instances:', num_ins)
+	print('types of ratios:', ratios)
+	print(sorted(ratios, key=itemgetter(1)))
 
 	# split(origin_ann_dir, img_dir)
-	modify_xml('/home/jzchen/data/UAV/val/Annotations/')
-	modify_xml('/home/jzchen/data/UAV/train/Annotations/')
+	# modify_xml('/home/jzchen/data/UAV/val/Annotations/')
+	# modify_xml('/home/jzchen/data/UAV/train/Annotations/')
 	# modify_xml('F:\\UAV\\Annotations\\')
 
 	

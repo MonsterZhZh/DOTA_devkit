@@ -51,22 +51,24 @@ def get_and_check(root, name, length):
         vars = vars[0]
     return vars
 
-def covert_gt_xml_to_txt(xml_path, save_path):
+def covert_gt_xml_to_txt(xml_path, imgs_path, save_path):
 	xml_lists = glob.glob(xml_path + '/*.xml')
 	for xml in xml_lists:
 		tree = ET.parse(xml)
 		root = tree.getroot()
 		Objects = root.findall('object')
 		txt_name = os.path.basename(xml).split('.')[0] + '.txt'
-		with open(save_path + txt_name, 'w') as w:
-			for Obj in Objects:
-				bndbox = get_and_check(Obj, 'bndbox', 1)
-				xmin = float(get_and_check(bndbox, 'xmin', 1).text)
-				ymin = float(get_and_check(bndbox, 'ymin', 1).text)
-				xmax = float(get_and_check(bndbox, 'xmax', 1).text)
-				ymax = float(get_and_check(bndbox, 'ymax', 1).text)
-				name = Obj.findall('name')[0].text
-				w.write('{:.0f} {:.0f} {:.0f} {:.0f} {:s}\n'.format(xmin, ymin, xmax, ymax, name))
+		img_path = imgs_path + os.path.basename(xml).split('.')[0] + '.jpg'
+		if os.path.exists(img_path):
+			with open(save_path + txt_name, 'w') as w:
+				for Obj in Objects:
+					bndbox = get_and_check(Obj, 'bndbox', 1)
+					xmin = float(get_and_check(bndbox, 'xmin', 1).text)
+					ymin = float(get_and_check(bndbox, 'ymin', 1).text)
+					xmax = float(get_and_check(bndbox, 'xmax', 1).text)
+					ymax = float(get_and_check(bndbox, 'ymax', 1).text)
+					name = Obj.findall('name')[0].text
+					w.write('{:.0f} {:.0f} {:.0f} {:.0f} {:s}\n'.format(xmin, ymin, xmax, ymax, name))
 
 
 def record_imagesetfile(image_path, save_path):
@@ -80,6 +82,6 @@ if __name__ == '__main__':
 	# merge_to_single_cls('F:\\DOTA_devkit-master\\detection_results\\FPN\\', 'Vehicle.txt', 'Vehicle')
 	# merge_to_single_cls('ensamble/', 'Vehicle.txt', 'Vehicle')
 	# merge_to_single_cls('F:\\DOTA_devkit-master\\detection_results\\cascade_rcnn\\', 'Vehicle.txt', 'Vehicle')
-	merge_to_multiple_cls('F:\\DOTA_devkit\\detection_results\\dets\\val_O8\\txts\\', 'F:\\DOTA_devkit\\detection_results\\dets\\val_O8\\', wordname_old_8)
-	# covert_gt_xml_to_txt('F:\\UAV\\all\\Annotations\\', 'GT\\')
+	# merge_to_multiple_cls('F:\\DOTA_devkit\\detection_results\\dets\\val_O8\\txts\\', 'F:\\DOTA_devkit\\detection_results\\dets\\val_O8\\', wordname_old_8)
+	covert_gt_xml_to_txt('F:\\DIOR\\Annotations\\', 'F:\\DIOR\\trainval\\\images\\', 'F:\\DIOR\\trainval\\labelTxt\\')
 	# record_imagesetfile('/home/wsh/DOTAv1.5/coco/val_N8', '/home/wsh/DOTAv1.5/coco/GT/')

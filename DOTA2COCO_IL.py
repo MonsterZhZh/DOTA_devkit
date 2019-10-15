@@ -2,6 +2,8 @@ import dota_utils as util
 import os
 import cv2
 import json
+
+## DOTA
 # LabelTxtv1.0
 # Old task 8 classes
 # wordname_old_8 = ['plane', 'baseball-diamond', 'bridge', 'ground-track-field', 'small-vehicle', 'large-vehicle', 'ship', 'tennis-court']
@@ -10,9 +12,15 @@ import json
 
 # LabelTxtv1.5
 # Old task 8 classes
-wordname_old_8 = ['plane', 'baseball-diamond', 'bridge', 'ground-track-field', 'small-vehicle', 'large-vehicle', 'ship', 'tennis-court']
+# wordname_old_8 = ['plane', 'baseball-diamond', 'bridge', 'ground-track-field', 'small-vehicle', 'large-vehicle', 'ship', 'tennis-court']
 # New task 8 classes
-wordname_new_8 = ['basketball-court', 'storage-tank',  'soccer-ball-field', 'turntable', 'harbor', 'swimming-pool', 'helicopter', 'container-crane']
+# wordname_new_8 = ['basketball-court', 'storage-tank',  'soccer-ball-field', 'turntable', 'harbor', 'swimming-pool', 'helicopter', 'container-crane']
+
+## DIOR
+# Old task 10 classes
+wordname_old_10 = ['golffield', 'Expressway-toll-station', 'vehicle', 'trainstation', 'chimney', 'storagetank', 'ship', 'harbor', 'airplane', 'groundtrackfield']
+# New task 10 classes
+wordname_new_10 = ['tenniscourt', 'dam', 'basketballcourt', 'Expressway-Service-area', 'stadium', 'airport', 'baseballfield', 'bridge', 'windmill', 'overpass']
 
 
 def DOTA2COCO(srcpath, destfile, wordname):
@@ -41,7 +49,10 @@ def DOTA2COCO(srcpath, destfile, wordname):
         for file in filenames:
             CONTAIN_CLS = False # contain or not corresponding classes in the given image
             # annotations
-            objects = util.parse_dota_poly2(file)
+            # 8 coordinates
+            # objects = util.parse_dota_poly2(file)
+            # 4 coordinates
+            objects = util.parse_dota_poly3(file)
             for obj in objects:
                 if obj['name'] in wordname:
                     single_obj = {}
@@ -79,13 +90,13 @@ def DOTA2COCO(srcpath, destfile, wordname):
 
 if __name__ == '__main__':
     # Train hbb of old task
-    DOTA2COCO('F:\DOTAv1.5\\train_Split_800', 'F:\DOTAv1.5\\train_Split_800\Annotations\DOTA_train_O8.json', wordname_old_8)
+    DOTA2COCO('F:\\DIOR\\trainval', 'F:\\DIOR\\trainval\\Annotations\\DIOR_train_O10.json', wordname_old_10)
     # Val hbb of old task
     # DOTA2COCO('F:\DOTAv1.5\\val_Split_800', 'F:\DOTAv1.5\\val_Split_800\Annotations\DOTA_val_O8.json', wordname_old_8)
     # Test hbb of old task without annotations
     # DOTA2COCO('F:\workspace\DOTAv1.5\\train', 'F:\workspace\DOTAv1.5\\train\Annotations\DOTA_test_O8.json', wordname_old_8)
     # Train hbb of new task
-    DOTA2COCO('F:\DOTAv1.5\\train_Split_800', 'F:\DOTAv1.5\\train_Split_800\Annotations\DOTA_train_N8.json', wordname_new_8)
+    DOTA2COCO('F:\\DIOR\\trainval', 'F:\\DIOR\\trainval\\Annotations\\DIOR_train_N10.json', wordname_new_10)
     # Val hbb of new task
     # DOTA2COCO('F:\DOTAv1.5\\val_Split_800', 'F:\DOTAv1.5\\val_Split_800\Annotations\DOTA_val_N7.json', wordname_new_8)
     # Test hbb of new task without annotations
