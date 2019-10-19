@@ -15,13 +15,18 @@ import json
 # wordname_old_8 = ['plane', 'baseball-diamond', 'bridge', 'ground-track-field', 'small-vehicle', 'large-vehicle', 'ship', 'tennis-court']
 # New task 8 classes
 # wordname_new_8 = ['basketball-court', 'storage-tank',  'soccer-ball-field', 'turntable', 'harbor', 'swimming-pool', 'helicopter', 'container-crane']
+# All 16 classes
+wordname_all_16 = ['plane', 'baseball-diamond', 'bridge', 'ground-track-field', 'small-vehicle', 'large-vehicle', 'ship', 'tennis-court',
+                   'basketball-court', 'storage-tank',  'soccer-ball-field', 'turntable', 'harbor', 'swimming-pool', 'helicopter', 'container-crane']
 
 ## DIOR
 # Old task 10 classes
-wordname_old_10 = ['airplane', 'baseballfield', 'bridge', 'groundtrackfield', 'vehicle', 'ship', 'tenniscourt', 'airport', 'chimney', 'dam']
+# wordname_old_10 = ['airplane', 'baseballfield', 'bridge', 'groundtrackfield', 'vehicle', 'ship', 'tenniscourt', 'airport', 'chimney', 'dam']
 # New task 10 classes
-wordname_new_10 = ['basketballcourt', 'storagetank', 'harbor', 'Expressway-toll-station', 'Expressway-Service-area', 'golffield', 'overpass', 'stadium', 'trainstation', 'windmill']
-
+# wordname_new_10 = ['basketballcourt', 'storagetank', 'harbor', 'Expressway-toll-station', 'Expressway-Service-area', 'golffield', 'overpass', 'stadium', 'trainstation', 'windmill']
+# All 20 classes
+wordname_all_20 = ['airplane', 'baseballfield', 'bridge', 'groundtrackfield', 'vehicle', 'ship', 'tenniscourt', 'airport', 'chimney', 'dam',
+                   'basketballcourt', 'storagetank', 'harbor', 'Expressway-toll-station', 'Expressway-Service-area', 'golffield', 'overpass', 'stadium', 'trainstation', 'windmill']
 
 def DOTA2COCO(srcpath, destfile, wordname):
     imageparent = os.path.join(srcpath, 'images')
@@ -50,9 +55,9 @@ def DOTA2COCO(srcpath, destfile, wordname):
             CONTAIN_CLS = False # contain or not corresponding classes in the given image
             # annotations
             # 8 coordinates
-            # objects = util.parse_dota_poly2(file)
+            objects = util.parse_dota_poly2(file)
             # 4 coordinates
-            objects = util.parse_dota_poly3(file)
+            # objects = util.parse_dota_poly3(file)
             for obj in objects:
                 if obj['name'] in wordname:
                     single_obj = {}
@@ -90,13 +95,13 @@ def DOTA2COCO(srcpath, destfile, wordname):
 
 if __name__ == '__main__':
     # Train hbb of old task
-    DOTA2COCO('F:\\DIOR\\trainval', 'F:\\DIOR\\trainval\\Annotations\\DIOR_train_O10.json', wordname_old_10)
+    # DOTA2COCO('F:\\DIOR\\test', 'F:\\DIOR\\test\\Annotations\\DIOR_test_all.json', wordname_all_20)
     # Val hbb of old task
-    # DOTA2COCO('F:\DOTAv1.5\\val_Split_800', 'F:\DOTAv1.5\\val_Split_800\Annotations\DOTA_val_O8.json', wordname_old_8)
+    DOTA2COCO('F:\DOTAv1.5\\train_Split_800', 'F:\DOTAv1.5\\train_Split_800\Annotations\DOTA_train_all.json', wordname_all_16)
     # Test hbb of old task without annotations
     # DOTA2COCO('F:\workspace\DOTAv1.5\\train', 'F:\workspace\DOTAv1.5\\train\Annotations\DOTA_test_O8.json', wordname_old_8)
     # Train hbb of new task
-    DOTA2COCO('F:\\DIOR\\trainval', 'F:\\DIOR\\trainval\\Annotations\\DIOR_train_N10.json', wordname_new_10)
+    # DOTA2COCO('F:\\DIOR\\trainval', 'F:\\DIOR\\trainval\\Annotations\\DIOR_train_N10.json', wordname_new_10)
     # Val hbb of new task
     # DOTA2COCO('F:\DOTAv1.5\\val_Split_800', 'F:\DOTAv1.5\\val_Split_800\Annotations\DOTA_val_N7.json', wordname_new_8)
     # Test hbb of new task without annotations
